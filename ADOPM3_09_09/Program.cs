@@ -7,7 +7,7 @@ namespace ADOPM3_09_09
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             WebClient wc = new WebClient { Proxy = null };
             var t1 = wc.DownloadStringTaskAsync("http://www.microsoft.com");
@@ -17,7 +17,9 @@ namespace ADOPM3_09_09
             var t2 = client.GetStringAsync("http://www.microsoft.com");
             var t3 = client.GetStringAsync("http://www.apple.com");
 
-            Task.WaitAll(t2, t3);
+            await t2;
+            await t3;
+            //Console.WriteLine(t2.Result);
             Console.WriteLine(t2.Result.Length);
             Console.WriteLine(t3.Result.Length);
 

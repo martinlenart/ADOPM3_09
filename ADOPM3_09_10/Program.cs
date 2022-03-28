@@ -33,6 +33,8 @@ namespace ADOPM3_09_10
         {
             var t1 = GetWebApiAsync();
             Console.WriteLine(t1.Result.Length); //15556 with my Api key
+            Console.WriteLine();
+            Console.WriteLine(t1.Result);
         }
     }
     //Exercise:

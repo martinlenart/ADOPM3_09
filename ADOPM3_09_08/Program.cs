@@ -23,7 +23,7 @@ namespace ADOPM3_09_08
         }
         static void Main(string[] args)
         {
-            var t1 =  DownloadPageAsync(fname("Example10_08.txt"));
+            var t1 =  DownloadPageAsync(fname("Example10_08.html"));
             t1.Wait();
 
             static string fname(string name)

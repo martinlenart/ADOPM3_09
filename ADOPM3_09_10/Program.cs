@@ -10,7 +10,7 @@ namespace ADOPM3_09_10
 {
     class Program
     {
-        public static async Task<string> GetWebApiAsync()
+        public static async Task<string> GetWebApiLongLatAsync()
         {
             double latitude = 59.5086798659495;
             double longitude = 18.2654625932976;
@@ -29,12 +29,35 @@ namespace ADOPM3_09_10
             return result;
         }
 
-        static void Main(string[] args)
+        public static async Task<string> GetWebApiCityAsync()
         {
-            var t1 = GetWebApiAsync();
-            Console.WriteLine(t1.Result.Length); //15556 with my Api key
+            var language = System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+            var apiKey = "eee86395bdce14b3d962d5956193d800";
+
+            var city = "Stockholm";
+            var uri = $"https://api.openweathermap.org/data/2.5/forecast?q={city}&appid={apiKey}";
+
+            var httpClient = new HttpClient();
+
+            HttpResponseMessage response = await httpClient.GetAsync(uri);
+            response.EnsureSuccessStatusCode();
+            var result = await response.Content.ReadAsStringAsync();
+
+            return result;
+        }
+
+
+        static async Task Main(string[] args)
+        {
+            var res = await GetWebApiLongLatAsync();
+            Console.WriteLine(res.Length); 
+            Console.WriteLine(res);
+
             Console.WriteLine();
-            Console.WriteLine(t1.Result);
+            var res2 = await GetWebApiCityAsync();
+            Console.WriteLine(res2.Length); 
+            Console.WriteLine(res2);
+
         }
     }
     //Exercise:

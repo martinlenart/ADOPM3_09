@@ -21,6 +21,7 @@ namespace ADOPM3_09_07
                     totalDownloadCount += html.Length;
                     onProgressReporting.Report($"Downloaded {totalDownloadCount} bytes {(i + 1) * 10}%");
                 }
+
                 return totalDownloadCount;
             }, token);
         }

@@ -14,7 +14,7 @@ namespace ADOPM3_09_10
             var language = System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
 
             //REPLACE WITH YOUR API KEY AFTER TEST
-            var apiKey = "eee86395bdce14b3d962d5956193d8";
+            var apiKey = "eee86395bdce14b3d962d5956193d800";
 
             var uri = $"https://api.openweathermap.org/data/2.5/forecast?" +
                 $"lat={latitude}&lon={longitude}&appid={apiKey}";
@@ -22,6 +22,7 @@ namespace ADOPM3_09_10
             var httpClient = new HttpClient();
 
             HttpResponseMessage response = await httpClient.GetAsync(uri);
+            //throw new Exception("Error handling test");
             response.EnsureSuccessStatusCode();
             var result = await response.Content.ReadAsStringAsync();
 
@@ -39,6 +40,7 @@ namespace ADOPM3_09_10
             var httpClient = new HttpClient();
 
             HttpResponseMessage response = await httpClient.GetAsync(uri);
+            //throw new Exception("Error handling test");
             response.EnsureSuccessStatusCode();
             var result = await response.Content.ReadAsStringAsync();
 
@@ -49,8 +51,8 @@ namespace ADOPM3_09_10
         static async Task Main(string[] args)
         {
             Console.WriteLine("\nAsync programming");
-            string[] result = new string[10];
-            for (int i = 0; i < 10; i++)
+            string[] result = new string[4];
+            for (int i = 0; i < 4; i++)
             {
                 try
                 {
@@ -70,19 +72,19 @@ namespace ADOPM3_09_10
                 Console.WriteLine($"\n{s}");
             }
 
-            
-            Console.WriteLine("\nParallell programming");
-            Task<string>[] tasks = new Task<string>[10];
-            for (int i = 0; i < 10; i++)
-            {
-                if (i % 2 == 0)
-                    tasks[i] = GetWebApiLongLatAsync();
-                else
-                    tasks[i] = GetWebApiCityAsync();
-            }
 
+            Console.WriteLine("\n\nParallell programming");
+            Task<string>[] tasks = new Task<string>[4];
             try
             {
+                for (int i = 0; i < 4; i++)
+                {
+                    if (i % 2 == 0)
+                        tasks[i] = GetWebApiLongLatAsync();
+                    else
+                        tasks[i] = GetWebApiCityAsync();
+                }
+
                 Task.WaitAll(tasks);
             }
             catch (Exception ex)
@@ -99,7 +101,7 @@ namespace ADOPM3_09_10
                     }
                 }
             }
-           
+
         }
     }
     //Exercise:
